@@ -8,6 +8,8 @@ project-infinity sits between these: a project tracking app built around a fixed
 
 It will ship as both a web app and a mobile app, so the same data needs to work across different screen sizes and view types. No tech stack decisions have been made yet — this document is product requirements only.
 
+**Release phases**: the app has two top-level modes — **Tasks mode** (Project > Subproject > Task, sections 2-5 below) and **Planning mode** (the pre-task research/idea-collection phase, section 7 below). Tasks mode ships as **V1**; Planning mode ships as **V2**. Tasks mode is self-sufficient on its own, while Planning mode's central feature — promoting an Idea into a Task — requires Tasks mode to exist first, so it can't come before it.
+
 ## 2. Core Concepts / Data Model
 
 ### User
@@ -20,7 +22,7 @@ Example: "Home Remodel"
 - Name, description.
 - Contains one or more Subprojects.
 - Always has at least one default subproject, **"Project Tasks"**, auto-created when the Project is created. This gives every project a place to put tasks that don't warrant their own subproject.
-  - The default subproject is visible and renamable, just like any user-created subproject.
+  - The default subproject is visible and can be renamed, just like any user-created subproject.
   - It is flagged `isDefault: true` and visually pinned/marked in the UI (e.g., listed first with a small "default" indicator).
   - Subprojects with `isDefault: true` cannot be deleted, guaranteeing every Project always has somewhere to add a task.
 - Status: derived, not manually set. Not Started / In Progress / Finished, computed by rolling up subproject statuses using the same rule subprojects use for their tasks (see below).
@@ -86,4 +88,34 @@ Examples: "Bathroom", "New Shed", "Project Tasks"
 
 ## 6. Not Yet Discussed
 
-- **Planning/research phase**: before or alongside doing the work, a user may want to research and decide what a subproject actually involves — comparing materials, researching costs, collecting visual references or inspiration (e.g., deciding on a faucet style before "Buy faucet" becomes a task with a real estimated cost). How this fits into the model — notes on the subproject, a distinct pre-task research item, something else entirely — has not been discussed yet and needs its own conversation before it's added to these requirements.
+(none currently — see section 7 for the previously-open planning/research question, now resolved into a full design)
+
+## 7. Planning Mode (V2)
+
+Before someone gets to the point of creating tasks and buying materials, they need to figure out what they want — comparing options, researching costs, collecting links, Amazon items, articles, and images. This happens for the project as a whole at first (e.g., "Home Remodel"), before subprojects are even decided, and some of it later moves under a specific subproject once it's clear where it belongs.
+
+This is a genuinely different kind of data than a Task: a Task is "work to be done" with a status and a cost, while a planning-stage item is "an option being considered" that may never turn into work at all (some inspiration images just inform the vibe of the project and never become a purchase).
+
+### Concept: two modes
+
+The app has two top-level modes the user switches between:
+- **Tasks mode** — the existing Project > Subproject > Task hierarchy (sections 2-5). Functional, quick to use.
+- **Planning mode** — built around a new concept, the **Idea**. More visual in nature (the content itself — images, link previews — is inherently visual), though it starts with a simple list view for the same incremental-view reasons Tasks mode does (see "Views" below).
+
+### The Idea entity
+
+- Title.
+- Optional URL, optional image, optional notes, optional price.
+- One Idea per option under consideration — no bundling multiple links/images into a single Idea. Comparing three faucet options means three separate Ideas, not one Idea with three links attached.
+- Parent: a **Project** directly, or a **Subproject** — not the default "Project Tasks" subproject, since Ideas are a planning-stage concept independent of the task-organization hierarchy. An Idea can be created directly under a Project (before any subproject structure exists) and later **moved** to a new or existing Subproject once it's clear where it belongs.
+- Status:
+  - **Considering** — the default state for a new Idea.
+  - **Chosen** — a distinct, manual milestone marking that this option has been decided on, independent of whether a Task has been created for it yet.
+  - **Rejected** — an off-ramp available at any point. Rejected Ideas stay visible in Planning mode, visually distinguished (e.g., grayed out or struck through) rather than hidden or deleted, so the comparison history remains visible.
+  - **Task Created** — set once at least one Task has been created from this Idea.
+- Idea → Task: an Idea can produce **more than one Task** (e.g., a "Kohler faucet" Idea can spawn both a "Buy faucet" task and an "Install faucet" task). Creating a Task from an Idea does not consume or remove the Idea — the Idea persists, linked to the Task(s) it produced, so the original reference (link, photo) stays reachable even after the Task is Done.
+- Assumption to revisit: Ideas soft-delete (`isDeleted`) like Subprojects/Projects rather than hard-delete like Tasks, consistent with keeping Rejected Ideas around as a decision record rather than discarding them. Not yet explicitly confirmed.
+
+### Views
+
+Planning mode's richer visual/gallery view (moodboard-style, image and link-preview forward) is not required on day one of building it out. Whichever version Planning mode ships in, it starts with a simple list of Ideas first (title, status, small thumbnail), with the richer gallery view added later — the same incremental-view philosophy already applied to Tasks mode's views.
