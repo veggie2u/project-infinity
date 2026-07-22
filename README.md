@@ -1,1 +1,3 @@
 # project-infinity
+
+## Testing rules
