@@ -8,7 +8,7 @@ The stack is React, React Native, Supabase, and Netlify — chosen directly by t
 
 ## 2. Repo Structure (Monorepo)
 
-**Yarn Workspaces + Turborepo.** Yarn workspaces link the packages together so apps can import shared code without publishing it anywhere; Turborepo adds task orchestration and caching (builds, lints, tests) across the packages.
+**pnpm Workspaces + Turborepo.** pnpm workspaces (declared in `pnpm-workspace.yaml`) link the packages together so apps can import shared code without publishing it anywhere; Turborepo adds task orchestration and caching (builds, lints, tests) across the packages, independent of which package manager sits underneath it.
 
 ```
 project-infinity/
@@ -18,7 +18,8 @@ project-infinity/
   packages/
     shared/    — Supabase client, TypeScript types, TanStack Query data-fetching hooks
     ui/        — HeroUI-based wrapper components, shared between web and mobile
-  package.json (yarn workspaces root)
+  package.json
+  pnpm-workspace.yaml
   turbo.json
 ```
 
@@ -69,7 +70,7 @@ project-infinity/
 
 ## 8. Package Manager
 
-- **Yarn** (workspaces), paired with Turborepo for task running.
+- **pnpm** (workspaces), paired with Turborepo for task running. Chosen over Yarn because Yarn Berry's default PnP (Plug'n'Play) mode is flatly incompatible with React Native — Metro doesn't support it, and this isn't expected to change — which would require explicitly overriding Berry's default (`nodeLinker: node-modules`) to make Expo work at all. pnpm's default behavior already works natively with Expo as of SDK 53+ / React Native 0.76+, no override needed, while also being a long-established, safe choice for the web side. Its strict, symlinked `node_modules` structure also catches "phantom dependencies" (code accidentally relying on a package that isn't actually declared as a dependency, just hoisted nearby) that a flatter structure would silently allow.
 
 ## 9. CI/CD
 

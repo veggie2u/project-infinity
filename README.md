@@ -2,12 +2,12 @@
 
 A project tracking app for multi-step personal projects (e.g., a home remodel) — sitting between a simple todo app and a full project management tool. See `REQUIREMENTS.md` for what it does, `ROADMAP.md` for build order, and `TECH-STACK.md` for the full architecture.
 
-This file is a living setup guide. Parts of it are placeholders (marked **TBD**) until the repo is actually scaffolded and a few remaining tech decisions (testing, linting) are made — update it as those land rather than letting it drift.
+This file is a living setup guide. One thing is still a placeholder (marked **TBD**) — the exact Node.js version — update it as that lands rather than letting it drift.
 
 ## Prerequisites
 
 - **Node.js** — TBD exact version once the repo is scaffolded (likely current LTS).
-- **Yarn** — TBD whether Classic (v1) or Berry (v2+); not yet explicitly decided, just that Yarn Workspaces + Turborepo is the monorepo approach (see `TECH-STACK.md`).
+- **pnpm** — the package manager for this monorepo, paired with Turborepo. Chosen over Yarn specifically because Yarn Berry's default mode is incompatible with Expo/React Native; see `TECH-STACK.md` § Package Manager for the full reasoning.
 - Accounts, all free tier for now:
   - GitHub (repo hosting, Actions)
   - Netlify (web hosting/previews)
@@ -20,7 +20,7 @@ This file is a living setup guide. Parts of it are placeholders (marked **TBD**)
 
 ## One-Time Setup
 
-1. Clone the repo, run `yarn install` from the root.
+1. Clone the repo, run `pnpm install` from the root.
 2. Create a Supabase project. Copy its project URL and anon/public key.
 3. Set up local env files (see `TECH-STACK.md` § Environment/Secrets Management):
    - `apps/web/.env` — `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
@@ -30,8 +30,8 @@ This file is a living setup guide. Parts of it are placeholders (marked **TBD**)
 
 ## Local Development
 
-- **Web**: TBD exact script name (likely `yarn workspace web dev`, running Vite's dev server).
-- **Mobile**: TBD exact script name (likely `yarn workspace mobile start`, running `expo start`).
+- **Web**: `pnpm dev:web` (runs `turbo run dev --filter=web`, starting Vite's dev server).
+- **Mobile**: `pnpm dev:mobile` (runs `turbo run dev --filter=mobile`, starting `expo start`).
 
 ## Database Migrations
 
@@ -48,7 +48,12 @@ Full reasoning in `TECH-STACK.md` § Backend/Database/Auth and § Local Supabase
 
 ## Build, Lint & Test
 
-TBD — testing framework and linting/formatting conventions haven't been decided yet (see `TECH-STACK.md` § Not Yet Decided). Fill in real commands here once those are settled and the monorepo's `turbo.json` pipeline is in place.
+- **Typecheck**: `pnpm typecheck` (`turbo run typecheck`) — TypeScript compilation check across every package, no emit.
+- **Lint**: `pnpm lint` (`turbo run lint`) — ESLint (code quality) plus Prettier in `--check` mode (formatting compliance), with `eslint-config-expo` layered on for `apps/mobile`.
+- **Test**: `pnpm test` (`turbo run test`) — Vitest, covering unit tests (the pure derivation functions in `packages/shared`), component tests (React Testing Library / React Native Testing Library), and hook/data-layer tests (MSW-mocked network calls). This is the fast, everyday test loop — see `TECH-STACK.md` § Testing Strategy for the full tier breakdown.
+- **Build**: `pnpm build` (`turbo run build`) — production builds for `apps/web` and `apps/mobile`.
+- **E2E tests** (not part of the everyday loop — slower, run separately): Playwright (web), Maestro (mobile), covering a small number of golden-path flows only.
+- **RLS tests**: not part of `yarn test`. `rlsautotest` runs automatically in CI, but only on PRs touching `supabase/migrations/**` (see `TECH-STACK.md` § Local Supabase & RLS Testing). Run it manually against the local Supabase stack (`supabase start`) if you want to check an RLS change before opening a PR.
 
 ## Deployment
 
