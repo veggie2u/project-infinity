@@ -2,11 +2,11 @@
 
 A project tracking app for multi-step personal projects (e.g., a home remodel) — sitting between a simple todo app and a full project management tool. See `REQUIREMENTS.md` for what it does, `ROADMAP.md` for build order, and `TECH-STACK.md` for the full architecture.
 
-This file is a living setup guide. One thing is still a placeholder (marked **TBD**) — the exact Node.js version — update it as that lands rather than letting it drift.
+This file is a living setup guide — update it as the project evolves rather than letting it drift.
 
 ## Prerequisites
 
-- **Node.js** — TBD exact version once the repo is scaffolded (likely current LTS).
+- **Node.js 24** (current Active LTS as of writing) — confirmed to work on Netlify's build environment; supported via EAS Build's `eas.json` `node` override field, though not explicitly documented on an official EAS-supported-versions list, so worth a quick sanity check the first time you run `eas build:configure`. Not Node 26 — it's the newest release but doesn't become LTS until October 2026.
 - **pnpm** — the package manager for this monorepo, paired with Turborepo. Chosen over Yarn specifically because Yarn Berry's default mode is incompatible with Expo/React Native; see `TECH-STACK.md` § Package Manager for the full reasoning.
 - Accounts, all free tier for now:
   - GitHub (repo hosting, Actions)
