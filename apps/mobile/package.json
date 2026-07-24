@@ -1,0 +1,12 @@
+{
+  "name": "mobile",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "echo \"apps/mobile not scaffolded yet - see ROADMAP.md step 0.2\" && exit 0",
+    "build": "echo \"apps/mobile not scaffolded yet - see ROADMAP.md step 0.2\" && exit 0",
+    "lint": "echo \"apps/mobile not scaffolded yet - see ROADMAP.md step 0.2\" && exit 0",
+    "typecheck": "echo \"apps/mobile not scaffolded yet - see ROADMAP.md step 0.2\" && exit 0",
+    "test": "echo \"apps/mobile not scaffolded yet - see ROADMAP.md step 0.2\" && exit 0"
+  }
+}
