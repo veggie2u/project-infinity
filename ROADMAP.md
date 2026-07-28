@@ -2,6 +2,18 @@
 
 This is a working roadmap, not a fixed contract — steps are meant to be built one at a time, checked and tested, and adjusted as earlier steps reveal issues with the plan.
 
+## Step 0: Scaffolding & Setup
+
+Infrastructure/plumbing that has to exist before V1 step 1 (bare Project creation) can be built — no real features yet, just getting the monorepo, both apps, and Supabase running end-to-end. See `TECH-STACK.md` and `SETUP-NOTES.md` for the reasoning and gotchas behind each piece.
+
+- [x] **0.1 Monorepo skeleton + `apps/web`** — pnpm workspaces, Turborepo, root configs (ESLint/Prettier/tsconfig), Vite + React + Tailwind v4 + HeroUI, running locally.
+- [x] **0.2 `apps/mobile`** — Expo scaffolded, Tailwind/Uniwind + HeroUI Native wired up, Metro configured, confirmed running (web target verified directly; native iOS build confirmed working on-device by the user after an initial stall).
+- [x] **0.3 `packages/shared` + `packages/ui`** — real package setup, Supabase client factory (no real data hooks yet — no schema exists), one representative `Button` wrapper proving the cross-platform (`@heroui/react`/`heroui-native`) and cross-bundler (Vite/Metro) resolution actually works. Both apps wired to consume it.
+- [ ] **0.4 Supabase connected** — local `supabase init`, env vars pointing at the existing hosted project, a trivial connectivity check. **Next up.**
+- [ ] **0.5 GitHub Actions CI** — typecheck/lint/test/build running via Turborepo on every PR.
+- [x] **0.6 Netlify connected** — site created, base directory `apps/web`, build passing.
+- [x] **0.7 EAS configured** — `eas init` linked to the project's EAS project ID, `app.json` slug/bundle identifier aligned.
+
 ## V1: Tasks Mode
 
 Tasks mode (the Project > Subproject > Task hierarchy described in `REQUIREMENTS.md`) ships first. It's self-sufficient on its own and doesn't depend on Planning mode existing.
