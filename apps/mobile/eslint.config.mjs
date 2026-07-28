@@ -8,7 +8,18 @@ import prettierConfig from 'eslint-config-prettier'
 // (import/no-cycle) on top of Expo's config instead, relying on the plugin
 // Expo's config already registered.
 export default [
-  { ignores: ['**/dist/**', '**/.expo/**', '**/node_modules/**', '**/.turbo/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/.expo/**',
+      '**/node_modules/**',
+      '**/.turbo/**',
+      '**/uniwind-types.d.ts',
+      '**/expo-env.d.ts',
+      '**/ios/**',
+      '**/android/**',
+    ],
+  },
   ...expoConfig,
   {
     rules: {

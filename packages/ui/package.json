@@ -5,10 +5,19 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "dev": "echo \"packages/ui not scaffolded yet - see TECH-STACK.md\" && exit 0",
-    "build": "echo \"packages/ui not scaffolded yet - see TECH-STACK.md\" && exit 0",
-    "lint": "echo \"packages/ui not scaffolded yet - see TECH-STACK.md\" && exit 0",
-    "typecheck": "echo \"packages/ui not scaffolded yet - see TECH-STACK.md\" && exit 0",
-    "test": "echo \"packages/ui not scaffolded yet - see TECH-STACK.md\" && exit 0"
+    "build": "tsc --noEmit",
+    "lint": "eslint . && prettier --ignore-path ../../.prettierignore --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no unit-testable logic in packages/ui yet\" && exit 0"
+  },
+  "dependencies": {
+    "@heroui/react": "^3.2.2",
+    "@heroui/styles": "^3.2.2",
+    "framer-motion": "^12.42.2",
+    "heroui-native": "^1.0.6",
+    "react": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17"
   }
 }

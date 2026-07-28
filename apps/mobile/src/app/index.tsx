@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Button } from 'heroui-native'
+import { Button } from '@project-infinity/ui'
 
 export default function HomeScreen() {
   return (

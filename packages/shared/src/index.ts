@@ -1,3 +1,2 @@
-// Placeholder — will hold the Supabase client factory, generated DB types,
-// and TanStack Query data-fetching hooks. See TECH-STACK.md.
-export {};
+export { createSupabaseClient } from './supabase-client'
+export type { SupabaseConfig } from './supabase-client'

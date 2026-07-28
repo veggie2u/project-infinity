@@ -6,16 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . && prettier --check .",
+    "lint": "eslint . && prettier --ignore-path ../../.prettierignore --check .",
     "typecheck": "tsc -b --noEmit",
     "test": "echo \"Vitest not wired up yet - see TECH-STACK.md Testing Strategy\" && exit 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroui/react": "^3.2.2",
-    "@heroui/styles": "^3.2.2",
+    "@project-infinity/ui": "workspace:*",
     "@tailwindcss/vite": "^4.3.3",
-    "framer-motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "tailwindcss": "^4.3.3"

@@ -1,0 +1,9 @@
+dist
+.expo
+.turbo
+node_modules
+pnpm-lock.yaml
+**/uniwind-types.d.ts
+**/expo-env.d.ts
+ios
+android

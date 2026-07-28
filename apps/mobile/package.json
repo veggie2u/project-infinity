@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~57.0.7",
+    "@project-infinity/ui": "workspace:*",
     "expo": "~57.0.8",
     "expo-constants": "~57.0.7",
     "expo-device": "~57.0.1",
@@ -43,7 +44,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "eslint . && prettier --check .",
+    "lint": "eslint . && prettier --ignore-path ../../.prettierignore --check .",
     "typecheck": "tsc --noEmit",
     "build": "echo \"Real mobile builds go through EAS Build - see TECH-STACK.md CI/CD\" && exit 0",
     "test": "echo \"Vitest not wired up yet - see TECH-STACK.md Testing Strategy\" && exit 0"
