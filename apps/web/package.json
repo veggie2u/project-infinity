@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@project-infinity/shared": "workspace:*",
     "@project-infinity/ui": "workspace:*",
     "@tailwindcss/vite": "^4.3.3",
     "react": "^19.2.7",

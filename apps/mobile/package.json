@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~57.0.7",
+    "@project-infinity/shared": "workspace:*",
     "@project-infinity/ui": "workspace:*",
     "expo": "~57.0.8",
     "expo-constants": "~57.0.7",

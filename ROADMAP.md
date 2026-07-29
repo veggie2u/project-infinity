@@ -9,8 +9,8 @@ Infrastructure/plumbing that has to exist before V1 step 1 (bare Project creatio
 - [x] **0.1 Monorepo skeleton + `apps/web`** — pnpm workspaces, Turborepo, root configs (ESLint/Prettier/tsconfig), Vite + React + Tailwind v4 + HeroUI, running locally.
 - [x] **0.2 `apps/mobile`** — Expo scaffolded, Tailwind/Uniwind + HeroUI Native wired up, Metro configured, confirmed running (web target verified directly; native iOS build confirmed working on-device by the user after an initial stall).
 - [x] **0.3 `packages/shared` + `packages/ui`** — real package setup, Supabase client factory (no real data hooks yet — no schema exists), one representative `Button` wrapper proving the cross-platform (`@heroui/react`/`heroui-native`) and cross-bundler (Vite/Metro) resolution actually works. Both apps wired to consume it.
-- [ ] **0.4 Supabase connected** — local `supabase init`, env vars pointing at the existing hosted project, a trivial connectivity check. **Next up.**
-- [ ] **0.5 GitHub Actions CI** — typecheck/lint/test/build running via Turborepo on every PR.
+- [x] **0.4 Supabase connected** — local `supabase init`, linked to the existing hosted project (`Project Infinity`, ref `mecobbczseakvymszclo`) via `supabase link`, local Docker-based stack confirmed working via `supabase start`/`supabase status`, env vars in both apps pointing at the hosted project, and a trivial console-only connectivity check (`checkSupabaseConnection` in `packages/shared`, called from both apps' entry points) confirming the full chain works end-to-end.
+- [ ] **0.5 GitHub Actions CI** — typecheck/lint/test/build running via Turborepo on every PR. **Next up.**
 - [x] **0.6 Netlify connected** — site created, base directory `apps/web`, build passing.
 - [x] **0.7 EAS configured** — `eas init` linked to the project's EAS project ID, `app.json` slug/bundle identifier aligned.
 

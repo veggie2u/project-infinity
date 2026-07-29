@@ -35,6 +35,10 @@ What follows are the structural lessons that are likely to still hold regardless
 
 **Claude Code's project-scoped `.mcp.json` must live at the actual session's project root.** Not in any subdirectory of a monorepo — Claude Code doesn't recursively search for nested `.mcp.json` files. It also isn't hot-reloaded; adding or moving one requires restarting the session before `/mcp` will show it.
 
+**`packages/shared`'s deliberately scoped `lib: ["ES2022"]` (no DOM, no Node types) means `console` doesn't type-check there.** This is intentional — the package is meant to stay environment-agnostic between the browser (web) and React Native (mobile), and adding `dom` or `@types/node` to get `console` typed would loosen that boundary for every future addition, not just the one that needed it. Any shared function that wants to log or touch another DOM/Node-only global should return a plain result instead and let the calling app (which does have the right lib/globals) handle the side effect. Ran into this immediately when adding a Supabase connectivity check that originally called `console.log` directly inside `packages/shared`.
+
+**First `supabase start` prints many `Error response from daemon: toomanyrequests: Rate exceeded` lines while pulling images — this is Docker Hub/ECR registry throttling on individual layers, not a real failure.** Docker retries automatically and the pull still completes; the run only actually fails if the final `supabase status` JSON doesn't print. Don't kill the process on these lines, and expect the first run to take a while (several GB across ~15 images) regardless.
+
 ## What's deliberately not here
 
 A separate genericized template/boilerplate repo. That's worth building once there's an actual second project providing real signal on what needs to be parameterized (naming, bundle IDs, package scopes) versus what can stay fixed — not speculatively, for one hypothetical future project.
