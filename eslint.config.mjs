@@ -8,7 +8,15 @@ import prettierConfig from 'eslint-config-prettier'
 import globals from 'globals'
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/.expo/**', '**/node_modules/**', '**/.turbo/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/.expo/**',
+      '**/node_modules/**',
+      '**/.turbo/**',
+      '**/uniwind-types.d.ts',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

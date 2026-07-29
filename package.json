@@ -15,7 +15,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.7.0",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "^57.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -23,6 +24,7 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "prettier": "^3.9.6",
+    "supabase": "^2.110.0",
     "turbo": "^2.10.6",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.65.0"
