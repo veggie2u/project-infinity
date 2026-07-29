@@ -4,3 +4,5 @@ packages:
 allowBuilds:
   core-js-pure: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - expo-updates@57.0.11
