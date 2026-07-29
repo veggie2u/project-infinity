@@ -61,3 +61,4 @@ Full reasoning in `TECH-STACK.md` § Backend/Database/Auth and § Local Supabase
 
 - **Web**: automatic via Netlify on every PR (preview) and on merge to `main` (production).
 - **Mobile**: EAS Update publishes a JS-only preview on every PR; a full EAS Build (iOS) runs on merge to `main` or manually. See `TECH-STACK.md` § CI/CD for the full breakdown.
+
