@@ -39,6 +39,8 @@ What follows are the structural lessons that are likely to still hold regardless
 
 **First `supabase start` prints many `Error response from daemon: toomanyrequests: Rate exceeded` lines while pulling images — this is Docker Hub/ECR registry throttling on individual layers, not a real failure.** Docker retries automatically and the pull still completes; the run only actually fails if the final `supabase status` JSON doesn't print. Don't kill the process on these lines, and expect the first run to take a while (several GB across ~15 images) regardless.
 
+**`expo/expo-github-action`'s `token` input fails silently if the underlying secret's value is blank.** Setting an empty/whitespace-only `EXPO_TOKEN` GitHub secret doesn't error at secret-creation time or at the action's "with:" step — the setup step just logs `Skipped authentication: 'token' not provided.` and continues (looking like a successful step), and the actual failure only surfaces later, in a downstream step like `expo-github-action/preview`, as `An Expo user account is required to proceed.` The tell in the logs: a genuinely-populated secret input prints as `token: ***` (masked) in the step's `with:` block; a blank one doesn't print the key at all. Re-running `gh secret set EXPO_TOKEN` with a careful paste (no stray newline/whitespace) fixed it.
+
 ## What's deliberately not here
 
 A separate genericized template/boilerplate repo. That's worth building once there's an actual second project providing real signal on what needs to be parameterized (naming, bundle IDs, package scopes) versus what can stay fixed — not speculatively, for one hypothetical future project.
