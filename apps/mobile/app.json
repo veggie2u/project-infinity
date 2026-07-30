@@ -45,6 +45,12 @@
         "projectId": "d769a05b-7056-43b0-ae43-23cb000933a4"
       }
     },
-    "owner": "veggie2u"
+    "owner": "veggie2u",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d769a05b-7056-43b0-ae43-23cb000933a4"
+    }
   }
 }
