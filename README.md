@@ -47,6 +47,7 @@ Full reasoning in `TECH-STACK.md` § Backend/Database/Auth and § Local Supabase
 6. If the change touches RLS policies, run `rlsautotest` locally before opening the PR (in addition to the path-filtered CI job that runs it automatically for any PR touching `supabase/migrations/**`).
 7. Commit the new migration file and the regenerated types file together in the same PR.
 8. **Deploying to the real hosted Supabase project** — currently a manual step: run `pnpm exec supabase db push` against the hosted project once ready. Not yet automated as part of CI/CD; worth revisiting once deployment cadence picks up.
+9. Supabase cannot be stopped via docker desktop. Run `pnpm exec supabase stop`.
 
 ## Build, Lint & Test
 
